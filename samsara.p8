@@ -6,9 +6,9 @@ GOD=false
 fr=0
 GN={"narak","vora","ferrox","aurel","kharun","lumara","the judge"}
 FN={"soul mote","deva","virtuous human","animal","hungry ghost","hellborn","asura"}
-FHP=split("80,70,90,100,65,130,120")
-FSPD=split("1,1,1,1.1,1.25,.9,1.05")
-FDMG=split("1,1.1,1,1,.9,1.2,1.3")
+FHP=split("60,140,120,105,90,75,150")
+FSPD=split(".95,1.2,1.15,1.1,1.05,1,1.25")
+FDMG=split(".9,1.25,1.15,1.1,1.05,1,1.35")
 FH=split("64,47,97,66,98,68,77") FCAP={3,8,6,5,4,4,8}
 EN={"slime","rat","skeleton","soldier","guardian","wisp","ghost","imp","big slime","brute","turret"}
 -- foe rows: hp,spd,dmg,ess, mode, a,b,c,d,e,pspd
@@ -58,7 +58,7 @@ function loadsave() cartdata(GOD and "samsara_god" or "samsara_v1") if dget(36)~
 function halo() return form==2 end
 function horns() return form==6 end
 function xpneed(n) return 5+4*n+n*n end
-function recalc() local bh=asc and 110 or FHP[form] local bd=asc and 1.2 or FDMG[form] maxhp=bh+bmax+18*U[6] hp=min(hp,maxhp) dmgs=bd*(1+.12*U[4]) if horns() then dmgs*=1.05 end spd=1.4*FSPD[form]*(1+.09*U[5])*(GOD and 1.5 or 1) pdmg=10*dmgs*(1+.22*U[1]) bdmg=7*dmgs*(1+.22*U[2]) rng=20+3*U[1] mag=(16+10*U[11])*(form==5 and 2 or 1)*(GOD and 3 or 1) essm=form==5 and 1.2 or 1 armor=U[7] regen=(halo() and .5 or 0)+.6*U[8] critc=.11*U[9] end
+function recalc() local bh=asc and 150 or FHP[form] local bd=asc and 1.35 or FDMG[form] maxhp=bh+bmax+18*U[6] hp=min(hp,maxhp) dmgs=bd*(1+.12*U[4]) if horns() then dmgs*=1.05 end spd=1.4*FSPD[form]*(1+.09*U[5])*(GOD and 1.5 or 1) pdmg=10*dmgs*(1+.22*U[1]) bdmg=7*dmgs*(1+.22*U[2]) rng=20+3*U[1] mag=(16+10*U[11])*(form==5 and 2 or 1)*(GOD and 3 or 1) essm=form==5 and 1.2 or 1 armor=U[7] regen=(halo() and .5 or 0)+.6*U[8] critc=.11*U[9] end
 function ladder(k) return k>=60 and 2 or k>=20 and 3 or k>=-19 and 4 or k>=-59 and 5 or 6 end
 function kadd(v) karma=cl(karma+v,-100,100) end
 function heal(v) hp=min(maxhp,hp+v) end
