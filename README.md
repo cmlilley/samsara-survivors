@@ -1,6 +1,6 @@
 # Samsara Survivors
 
-A PICO-8 Vampire Survivors style roguelite about reincarnation. Every life is nine minutes. How you live it decides what you come back as.
+A PICO-8 Vampire Survivors style roguelite about reincarnation. Every life is five minutes. How you live it decides what you come back as.
 
 ## The wheel
 
