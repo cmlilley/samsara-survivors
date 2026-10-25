@@ -154,6 +154,39 @@ SFX[15] = (11, seq(
     [(s, 50, NOI, 2) for s in (2, 6, 10, 14, 18, 22, 26, 30)] +
     [(s, 44, NOI, 2) for s in (7, 15, 23, 31)]))
 
+# --- WIN STING components (music pattern 4, speed 8, plays once) -----
+# sfx 16: lead, a rising D major-feel arp that lands and rings.
+SFX[16] = (8, seq([
+    (0, "D4", PLS, 5), (4, "F4", PLS, 5), (8, "A4", PLS, 5),
+    (12, "D5", PLS, 5), (16, "C5", PLS, 5), (20, "D5", PLS, 4),
+    (24, "A4", PLS, 4), (28, "D5", PLS, 5),
+]))
+# sfx 17: bass, roots under the arp.
+SFX[17] = (8, seq([
+    (0, "D2", TRI, 5), (8, "A2", TRI, 4), (16, "D3", TRI, 5),
+    (24, "D3", TRI, 4),
+]))
+# sfx 18: soft organ shimmer above.
+SFX[18] = (8, seq([
+    (0, "F4", ORG, 2), (8, "A4", ORG, 2), (16, "D5", ORG, 2),
+    (24, "D5", ORG, 2),
+]))
+
+# --- LOSE STING components (music pattern 5, speed 10, plays once) ----
+# sfx 19: lead, a slow sinking line that settles on the tonic.
+SFX[19] = (10, seq([
+    (0, "A3", TRI, 5), (6, "F3", TRI, 5), (12, "D3", TRI, 5),
+    (18, "C3", TRI, 4), (24, "D3", TRI, 5),
+]))
+# sfx 20: bass, sparse and low.
+SFX[20] = (10, seq([
+    (0, "D2", TRI, 5), (12, "F2", TRI, 4), (24, "D2", TRI, 5),
+]))
+# sfx 21: organ shadow with the dorian Bb for dread.
+SFX[21] = (10, seq([
+    (0, "D4", ORG, 2), (12, "Bb3", ORG, 2), (24, "A3", ORG, 2),
+]))
+
 # --- sfx 32: all-silent sequence (title pattern's 4th channel) --------
 SFX[32] = (24, {})
 
@@ -187,6 +220,8 @@ MUSIC = [
     (0x01, [4, 5, 6, 7]),       # 1 life loop A, loop begin
     (0x02, [8, 9, 10, 11]),     # 2 life loop B, loop end (back to 1)
     (0x03, [12, 13, 14, 15]),   # 3 boss loop, loops on itself
+    (0x04, [16, 17, 18, 32]),   # 4 win sting, stop flag: plays once
+    (0x04, [19, 20, 21, 32]),   # 5 lose sting, stop flag: plays once
 ]
 
 
