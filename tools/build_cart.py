@@ -54,6 +54,9 @@ def main():
             "__lua__",
             lua.rstrip("\n"),
             "__gfx__"] + gfx_lines()
+    world_map = ROOT / "assets" / "world_map.txt"
+    if world_map.exists():
+        cart += ["__map__"] + world_map.read_text().rstrip("\n").split("\n")
     audio = ROOT / "assets" / "audio_sections.txt"
     if audio.exists():
         cart += audio.read_text().rstrip("\n").split("\n")
