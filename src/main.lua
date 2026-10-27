@@ -24,7 +24,7 @@ function ucap(i) return min(UM[i],asc and 8 or FCAP[form]) end function mkcarry(
 -- 5 set(p1: 1 vac/2 kwaves)
 BPS={".6,36,2.6,4,1",".22,46,3.5,5,1",".5,0,2.6,1,2,.6,4",".45,42,1,3,3,.1,2,7","0,0,2.4,5,2",".3,42,3.2,4,2",".45,30,0,0"}
 BP={} for i=1,7 do BP[i]=split(BPS[i]) end BTS={"0,0,0,0,0,0,0,0,0,0,0,0,0,0","0,0,0,0,0,3,2,0,0,0,0,0,0,0","0,0,0,0,0,0,0,0,0,0,0,0,0,0","0,0,0,8,5,0,0,0,0,0,0,10,0,1","3,20,8,0,0,0,0,0,.25,0,0,0,0","0,0,0,0,0,0,0,0,0,0,0,0,0,0","0,0,0,0,0,0,0,50,3,0,0,0,0,0"} DBK=split("0,70,35,0,-35,-70,0")
-BSP=split("0,0,160,4,156,4,11,4,2,0,4,0,164,4")
+BSP=split("0,0,160,2,156,4,11,4,2,0,4,0,164,4")
 JACT={bolt=split("0,0,1.4,3,5,.06,2,7"),melee=split("0,0,1.8,1,3,.5")}
 UN={"melee","bolt","spread","damage","speed","max hp","armor","regen","cooldown","magnet"}
 UI=split("134,135,136,137,138,139,140,141,143,144")
@@ -60,7 +60,7 @@ function gainxp(v) v*=essm ess+=flr(v) xp+=v while xp>=need do xp-=need lvl+=1 l
 -- life setup
 function startlife(a) asc=a foes,pp,ep,pk,zn,ac,B={},{},{},{},{},{},nil U={} for i=1,10 do U[i]=0 end lvl,xp,need,ess,kills,bmax=1,0,10,0,0,0,0 karma=lastk hp,px,py,face,pinv,pcd,bcd,avt,tsec,tmin,df,lvlq=1,384,384,.25,0,0,0,0,0,0,0,0 local pf=pform(karma) form=pf>0 and pf or asc and ladder(flr(karma)) or lives==0 and 1 or ladder(flr(lastk)) for i=1,10 do U[i]=min(saved[i],ucap(i)) end if dfm>0 then form=dfm karma=DBK[dfm] end lives+=1 dset(35,lives) recalc() hp=maxhp spawnt,markearned=1,0 won=false marktxt,crownnote="","" nextinn,fedt,pacc,ascidx,ascnext=6,0,0,1,20 lastr=0 cht=25 for P in all(PL) do P.done=false P.ch=0 P.on=false end state="play" ban(asc and "ascension life" or FN[form]) music(asc and 3 or 1) if dbs>0 then dolock() spawnboss(dbs,lockform) end end
 -- drawing helpers
-function drw(n,x,y,w,h,m,f) if m==4 then spr(n,x-16,y-16,4,4) return end local sx,sy=(n%16)*8,flr(n/16)*8 if m==0 then sspr(sx,sy,8,16,x-w/2,y-h/2,w/2,h) sspr(sx,sy,8,16,x,y-h/2,w/2,h,true) elseif m==1 then sspr(sx,sy,16,16,x-w/2,y-h/2,w,h,f) end end
+function drw(n,x,y,w,h,m,f) if m==4 then spr(n,x-16,y-16,4,4) return end local sx,sy=(n%16)*8,flr(n/16)*8 if m==0 then sspr(sx,sy,8,16,x-w/2,y-h/2,w/2,h) sspr(sx,sy,8,16,x,y-h/2,w/2,h,true) elseif m==1 then sspr(sx,sy,16,16,x-w/2,y-h/2,w,h,f) elseif m==2 then spr(n,x-16,y-16,2,4) spr(n,x,y-16,2,4,true) end end
 function drawform(f,x,y,fa,at,m,pv) local fx,fy=cos(fa),sin(fa) local ff=fx<0 local n=FDS[2*f] if m then y+=((f==2 or f==6) and sin(fr*.07)*2.5 or sin(wph)*1.1) end local wf=at>0 or fr%24<12 if f==1 then n=fr%12<6 and 64 or 65 elseif f==2 or f==6 then local wn=wf and 76 or 75 if f==6 then pal(7,10) pal(14,9) end for i=0,1 do spr(wn,x-12+i*16,y-6,1,2,i>0) end pal() if f==2 and at>0 then n=74 end elseif f==7 then n=at>.1 and 79 or at>0 and 96 or 77 elseif f==8 then circ(x,y-3,8+fr%16,10) for i=0,11 do local a=fr*.01+i/12 local r=i%2==0 and 19 or 15 line(x+cos(a)*9,y-3+sin(a)*9,x+cos(a)*r,y-3+sin(a)*r,i%2==0 and 10 or 9) end end if f==4 and m and fr%16>=8 then n=224 end drw(n,x,y,16,16,FDS[2*f-1],ff) if f==4 and m and sin(wph)<0 then local c=ff and 126 or 125 spr(c,x-8,y,1,1,ff) spr(251-c,x,y,1,1,ff) end if f==3 then line(x+fx*3,y+fy*3,x+fx*10,y+fy*10,4) circfill(x+fx*10,y+fy*10,1,10) line(x-1,y,x+2,y+3,8) end if f==2 or f==6 then for i=0,2 do local a=fr*.04+i/3 pset(x+cos(a)*12,y+sin(a)*5,f==2 and 10 or i%2==0 and 9 or 8) end end if pv and form==2 then circ(x,y-13,4,10) end end
 
 
